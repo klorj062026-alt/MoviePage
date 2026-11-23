@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-const MovieContext = createContext;
+const MovieContext = createContext();
 
 export const useMovieContext = () => useContext(MovieContext);
 
@@ -14,7 +14,7 @@ export const MovieProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("favorite", JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   const addToFavorites = (movie) => {
@@ -37,6 +37,6 @@ export const MovieProvider = ({ children }) => {
   };
 
   return (
-    <MovieContext.provider value={value}>{children}</MovieContext.provider>
+    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
   );
 };
