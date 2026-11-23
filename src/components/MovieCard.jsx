@@ -1,8 +1,13 @@
 import "../css/MovieCard.css";
+import { useMovieContext } from "../context/MovieContext";
 
 export default function MovieCard({ movie }) {
-  function onLike() {
-    alert("Clicked");
+  const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  const favorite = isFavorite(movie.id);
+  function onLike(e) {
+    e.preventDefault();
+    if (favorite) removeFromFavorites(movie.id);
+    else addToFavorites(movie);
   }
   return (
     <div className="movie-card">
@@ -12,7 +17,10 @@ export default function MovieCard({ movie }) {
           alt={movie.title}
         />
         <div className="movie-overlay">
-          <button className="favorite-btn" onClick={onLike}>
+          <button
+            className={`favorite-btn ${favorite ? "active" : ""}`}
+            onClick={onLike}
+          >
             ♥
           </button>
         </div>
